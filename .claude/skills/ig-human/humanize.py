@@ -148,9 +148,9 @@ def pass_lexical(text, lex):
     text = re.sub(r"(?m)^[ \t]*(?:[,.;:]+[ \t]*)+", "", text)
     text = re.sub(r"(?m)^[ \t](?=\S)", "", text)       # one space left by a deletion.
                                                       # Deeper indents are deliberate.
-    text = re.sub(r"\s+([,.;:!?])", r"\1", text)
-    text = re.sub(r"([.!?])\s*,\s*([a-zà-ÿ])",         # opener deleted: ". , word"
+    text = re.sub(r"([.!?])[ \t]+,[ \t]*([A-Za-zÀ-ÿ])",    # opener deleted: ". , word"
                   lambda m: m.group(1) + " " + m.group(2).upper(), text)
+    text = re.sub(r"\s+([,.;:!?])", r"\1", text)
     text = re.sub(r",\s*([,.;:!?])", r"\1", text)      # an em dash became a comma,
                                                       # then the clause after it went
     text = text.replace("...", "\x00ELL\x00")          # protect real ellipses
